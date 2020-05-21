@@ -18,7 +18,10 @@ router.get('/message', (req, res) => {
 router.post('/message', function (req, res) {
     console.log(req.body)   //get body
     console.log(req.query)  //get URL query arguments
-    res.send(`Message ${req.body.text} Added`)
+    res.status(201).send({
+        error: '',
+        body: 'Created'
+    })
 })
 
 app.listen(PORT, () => {
