@@ -1,10 +1,18 @@
 const express = require('express')
+const router = express.Router()
 
 var app = express()
+const PORT = process.env.PORT || 3000
+app.use(router)
 
-app.use('/', function (req, res) {
-    res.send('Hello')
+router.get('/message', function (req, res) {
+    res.send('Message List')
 })
 
-app.listen(3000)
-console.log('Server is listening at http://localhost:3000')
+router.post('/message', function (req, res) {
+    res.send('Message Added')
+})
+
+app.listen(PORT, function () {
+    console.log('Server is listening at http://localhost:3000')
+})
