@@ -1,5 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+
+const response = require('./network/response')
+
 const router = express.Router()
 
 var app = express()
@@ -12,16 +15,18 @@ router.get('/message', (req, res) => {
     res.header({
         "custom-header": "Our personal value"
     })
-    res.send('Message List')
+    response.success(req, res, "Message List")
 })
 
 router.post('/message', function (req, res) {
     console.log(req.body)   //get body
     console.log(req.query)  //get URL query arguments
-    res.status(201).send({
-        error: '',
-        body: 'Created'
-    })
+    if (req.query.error == 'ok') {
+        response.error(req, res, 'Simulated Error', 400)
+    } else {
+        response.success(req, res, "Created", 201)
+    }
+
 })
 
 app.listen(PORT, () => {
