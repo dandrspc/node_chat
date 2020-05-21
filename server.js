@@ -22,7 +22,8 @@ router.post('/message', function (req, res) {
     console.log(req.body)   //get body
     console.log(req.query)  //get URL query arguments
     if (req.query.error == 'ok') {
-        response.error(req, res, 'Simulated Error', 400)
+        response.error(req, res, 'Unexpected Error', 400,
+            'It is just an error simulation')
     } else {
         response.success(req, res, "Created", 201)
     }
