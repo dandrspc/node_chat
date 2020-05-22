@@ -1,8 +1,8 @@
-exports.success = function (req, res, message, status) {
+exports.success = function (req, res, data, status) {
     res.status(status || 200)
         .send({
             error: '',
-            body: message,
+            data,
         })
 }
 
@@ -10,7 +10,7 @@ exports.error = function (req, res, error, status, details) {
     console.log('[response error]' + details)
     res.status(status || 500)
         .send({
-            error: error,
-            body: '',
+            error,
+            data: '',
         })
 }
