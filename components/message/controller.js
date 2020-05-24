@@ -35,8 +35,26 @@ function updateMessage(id, message) {
     })
 }
 
+function deleteMessage(id) {
+    return new Promise(async (resolve, reject) => {
+        if (!id) {
+            reject('Invalid Id')
+            return false
+        }
+
+        result = await store.remove(id)
+            .then(({ deletedCount }) => {
+                console.log(`${deletedCount} message(s) removed from db`)
+                resolve(deletedCount)
+            })
+            .catch(e => { reject(e) })
+        resolve(result)
+    })
+}
+
 module.exports = {
     addMessage,
     getMessages,
     updateMessage,
+    deleteMessage,
 }
