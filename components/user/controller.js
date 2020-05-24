@@ -11,6 +11,12 @@ function addUser(name) {
     return store.addUser(user)
 }
 
+
+function getUsers() {
+    return store.getUsers()
+}
+
 module.exports = {
     addUser,
+    getUsers,
 }
