@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', function (req, res) {
-
     controller.addMessage(req.body.user, req.body.message)
         .then(fullMessage => {
             response.success(req, res, fullMessage, 201)
@@ -23,6 +22,17 @@ router.post('/', function (req, res) {
             response.error(req, res, 'Invalid Information', 500, err)
         })
 
+})
+
+router.patch('/:id', function (req, res) {
+    console.log(`request from ${req.ip} --- [${req.method}] ${req.url}`)
+    controller.updateMessage(req.params.id, req.body.message)
+        .then(data => {
+            response.success(req, res, data, 200)
+        })
+        .catch(err => {
+            response.error(req, res, 'Internal Error', 500)
+        })
 })
 
 module.exports = router

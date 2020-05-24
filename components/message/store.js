@@ -3,7 +3,7 @@ const Model = require('./model')
 
 const MONGO_URI = process.env.MONGO_URI
 db.Promise = global.Promise
-db.connect(MONGO_URI, { useNewUrlParser: true })
+db.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('[db] database connected successfully')
     })
@@ -11,7 +11,6 @@ db.connect(MONGO_URI, { useNewUrlParser: true })
         console.log('[db] database failed to connect ' + err)
     })
 
-const list = []
 
 function addMessage(message) {
     const myMessage = new Model(message)
@@ -23,7 +22,15 @@ async function getMessages() {
     return messages
 }
 
+async function updateMessage(id, message) {
+    const foundMessage = await Model.findOne({ _id: id })
+    foundMessage.message = message
+    const newMessage = foundMessage.save()
+    return newMessage
+}
+
 module.exports = {
     add: addMessage,
     list: getMessages,
+    updateMessage: updateMessage,
 }
