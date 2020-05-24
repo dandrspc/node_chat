@@ -1,15 +1,5 @@
-const db = require('mongoose')
 const Model = require('./model')
 
-const MONGO_URI = process.env.MONGO_URI
-db.Promise = global.Promise
-db.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('[db] database connected successfully')
-    })
-    .catch(err => {
-        console.log('[db] database failed to connect ' + err)
-    })
 
 
 function addMessage(message) {
