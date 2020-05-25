@@ -5,11 +5,11 @@ function addMessage(message) {
     myMessage.save()
 }
 
-function getMessages(filterUser) {
+function getMessages(filterChat) {
     return new Promise((resolve, reject) => {
         let filter = {}
-        if (filterUser) {
-            filter = { user: filterUser }
+        if (filterChat) {
+            filter = { chat: filterChat }
         }
         Model.find(filter)
             .populate('user')
@@ -21,7 +21,6 @@ function getMessages(filterUser) {
                 resolve(populated)
             })
     })
-
 }
 
 async function updateMessage(id, message) {

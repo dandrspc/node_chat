@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
         })
 })
 
-router.get('/:userId', (req, res) => {
+router.get('/', (req, res) => {
     controller.getChats(req.params.userId)
         .then(chats => {
             response.success(req, res, chats, 200)

@@ -18,9 +18,9 @@ function addMessage(chat, user, message) {
     })
 }
 
-function getMessages(filterUser) {
+function getMessages(filter) {
     return new Promise((resolve, reject) => {
-        resolve(store.list(filterUser))
+        resolve(store.list(filter))
     })
 }
 
