@@ -22,8 +22,6 @@ router.get('/', (req, res) => {
 
 router.post('/', upload.single('file'), function (req, res) {
 
-    console.log(req.file)
-
     const { chat, user, message } = req.body
     const file = req.file
     controller.addMessage(chat, user, message, file)

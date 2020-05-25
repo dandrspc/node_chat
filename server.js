@@ -1,21 +1,22 @@
 require('dotenv').config()
+const config = require('./config')
 
 const express = require('express')
+const app = express()
+const server = require('http').Server(app)
+
 const bodyParser = require('body-parser')
+const { connect, socket } = require('./socket')
 const db = require('./db')
 const router = require('./network/routes')
 
-const MONGO_URI = process.env.MONGO_URI
-db(MONGO_URI)
-
-var app = express()
-const PORT = process.env.PORT || 3000
+db(config.mongoUrl)
 
 app.use(bodyParser.json())
-
+connect(server)
 router(app)
 
-app.use('/app', express.static('public'))
-app.listen(PORT, () => {
-    console.log('Server is listening at http://localhost:3000')
+app.use(config.publicRoute, express.static('public'))
+server.listen(config.port, () => {
+    console.log(`Server is listening at ${config.host}:${config.PORT}`)
 })

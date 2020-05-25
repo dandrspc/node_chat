@@ -1,8 +1,10 @@
+const config = require('../../config')
 const store = require('./store')
+const { socket } = require('../../socket')
 
 function addMessage(chat, user, message, file) {
     return new Promise((resolve, reject) => {
-        if (!(chat && user) || !message) {
+        if (!(chat && user && message)) {
             console.error('[messageController] No user, chatId or message')
             reject('Wrong data')
             return false
@@ -10,7 +12,9 @@ function addMessage(chat, user, message, file) {
 
         let fileUrl = ''
         if (file) {
-            fileUrl = 'http://localhost:3000/app/files' + file.filename
+            fileUrl = `${config.hots}:${config.port}
+            ${config.publicRoute}${config.files}`
+                + file.filename
         }
 
         const fullMessage = {
@@ -20,7 +24,9 @@ function addMessage(chat, user, message, file) {
             date: new Date(),
             file: fileUrl,
         }
+
         store.add(fullMessage)
+        socket.io.emit('message', fullMessage)
         resolve(fullMessage)
     })
 }
