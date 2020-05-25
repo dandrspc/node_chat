@@ -11,8 +11,8 @@ function createChat(users) {
     return store.createChat(chat)
 }
 
-function getChats() {
-    return store.getChats()
+function getChats(userId) {
+    return store.getChats(userId)
 }
 
 module.exports = {

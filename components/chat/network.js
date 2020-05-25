@@ -6,15 +6,15 @@ const router = express.Router()
 router.post('/', (req, res) => {
     controller.createChat(req.body.users)
         .then(data => {
-            response.success(req, res, data, 200)
+            response.success(req, res, data, 201)
         })
         .catch(err => {
             response.error(req, res, 'Internal error', 500, err)
         })
 })
 
-router.get('/', (req, res) => {
-    controller.getChats()
+router.get('/:userId', (req, res) => {
+    controller.getChats(req.params.userId)
         .then(chats => {
             response.success(req, res, chats, 200)
         })

@@ -24,8 +24,6 @@ function getChats(userId) {
                 resolve(populated)
             })
     })
-
-
 }
 
 module.exports = {
